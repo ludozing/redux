@@ -1,12 +1,25 @@
-function Header({input, onChange, onSubmit}){
+import { useState } from 'react';
+
+function Header({todos, onCreate}){
+  const [text, setText] = useState('');
+  const onChange = (e) => {
+    setText(e.target.value);
+  }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onCreate(text);
+    setText('');
+  }
   return (
-    <div>
+    <header>
       <h1>TO DO LIST</h1>
-      <p>
-        <input name="todoInput" value={input} onChange={onChange} />
-        <button onClick={onSubmit}>+</button>
-      </p>
-    </div>
+        <form onSubmit={onSubmit}>
+          <p>
+            <input name="todoInput" value={text} onChange={onChange} />
+            <button type='submit'>+</button>
+          </p>
+        </form>
+    </header>
   )
 }
 export default Header;
